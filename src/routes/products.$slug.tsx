@@ -20,6 +20,8 @@ import { Footer } from "@/components/site/sections";
 import { Reveal } from "@/components/site/reveal";
 import { ProductCard } from "@/components/site/product-card";
 import { getProduct, PRODUCTS } from "@/lib/products";
+import { cartStore } from "@/lib/cart";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
@@ -242,7 +244,13 @@ function ProductPage() {
                   <Plus className="size-4" />
                 </button>
               </div>
-              <button className="group flex items-center gap-3 rounded-full bg-foreground px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] text-background transition hover:bg-leaf">
+              <button
+                onClick={() => {
+                  cartStore.addToCart(product, qty);
+                  toast.success(`${product.name} added to cart! (${qty}x) 🍎`);
+                }}
+                className="group flex items-center gap-3 rounded-full bg-foreground px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] text-background transition hover:bg-leaf"
+              >
                 Add to Cart · ${(product.price * qty).toFixed(2)}
                 <span className="grid size-6 place-items-center rounded-full bg-white/15 transition-transform group-hover:rotate-90">
                   <Plus className="size-3" />

@@ -2,6 +2,9 @@ import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { Heart, Eye, Plus, Star } from "lucide-react";
 import type { MouseEvent } from "react";
 import { cn } from "@/lib/utils";
+import { cartStore } from "@/lib/cart";
+import { PRODUCTS } from "@/lib/products";
+import { toast } from "sonner";
 
 export interface Product {
   id: string;
@@ -145,6 +148,15 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           </span>
         </div>
         <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const fullProduct = PRODUCTS.find((p) => p.id === product.id);
+            if (fullProduct) {
+              cartStore.addToCart(fullProduct, 1);
+              toast.success(`${fullProduct.name} added to cart! 🍎`);
+            }
+          }}
           className={cn(
             "group/btn mt-5 flex w-full items-center justify-between rounded-full px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] transition-all",
             isHighlight
