@@ -6,13 +6,14 @@ const links: { label: string; to: string }[] = [
   { label: "Shop", to: "/shop" },
   { label: "Our Orchard", to: "/" },
   { label: "The Process", to: "/process" },
+  { label: "Fruit Guide", to: "/guide" },
   { label: "Journal", to: "/" },
 ];
 
 export function Nav() {
   const { scrollY } = useScroll();
   const padY = useTransform(scrollY, [0, 120], [22, 12]);
-  const width = useTransform(scrollY, [0, 200], ["96%", "72%"]);
+  const width = useTransform(scrollY, [0, 200], ["96%", "82%"]);
   const radius = useTransform(scrollY, [0, 200], [24, 999]);
   const blur = useTransform(scrollY, [0, 200], [8, 22]);
   const bg = useTransform(
